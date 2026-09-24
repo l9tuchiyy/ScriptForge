@@ -16,6 +16,13 @@ headers = {
 
 num = 0
 
+def delete_quotes():
+    yes_no = input('Вы уверены? [да/нет]').lower()
+    if yes_no == 'да':
+        quotes.clear()
+        with open('quotes.json', 'w', encoding="UTF-8") as f:
+            json.dump(quotes, f, ensure_ascii=False, indent=4)
+
 def show_quote():
     response = requests.get(
         "https://dummyjson.com/quotes/random",
@@ -66,7 +73,8 @@ while True:
     print(f'Выбирите действие:\n'
           f'1. Показать цитату\n'
           f'2. Показать сохраненные цитаты\n'
-          f'3. Выйти')
+          f'3. Удалить все сохраненные цитаты\n'
+          f'4. Выйти')
     try:
         num = int(input(''))
     except ValueError:
@@ -77,6 +85,8 @@ while True:
     elif num == 2:
         show_quotes()
     elif num == 3:
+        delete_quotes()
+    elif num == 4:
         print('Спасибо за работу! До свидания!')
         break
     else:
